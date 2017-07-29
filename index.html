@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <link rel="canonical" href="https://weather-pwa-sample.firebaseapp.com/final/">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contatos PWA</title>
+  <link rel="stylesheet" type="text/css" href="styles/default.css">
+
+  <link rel="manifest" href="/manifest.json">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="Contatos PWA">
+  <link rel="apple-touch-icon" href="images/icons/icon-128.png">
+  <meta name="msapplication-TileImage" content="images/icons/icon-128.png">
+  <meta name="msapplication-TileColor" content="#2F3BA2">
+</head>
+<body>
+
+  <header class="header">
+    <h1 class="header__title">Lista de Contatos</h1>
+    <button id="butAdd" class="headerButton" aria-label="Adicionar"></button>
+  </header>
+
+  <main class="main">
+    <div class="card cardTemplate contatos" hidden>
+      <div class="nome-key"></div>
+      <div class="genero-key"></div>
+      <div class="telefone-key"></div>
+      <div class="descricao-key"></div>
+    </div>
+  </main>
+
+  <div class="dialog-container">
+    <div class="dialog">
+      <div class="dialog-title">Adicionar novo contato</div>
+      <div class="dialog-body">
+        <input placeholder="Nome" id="nomeToAdd" class="field"/>  
+        <select id="selectGenderToAdd" style="margin-bottom: 10px;">
+          <option value="" disabled selected>Gênero</option>
+          <option value="M">Masculino</option>
+          <option value="F">Feminino</option>
+        </select>
+        <input placeholder="Telefone" id="telefoneToAdd" class="field"/>
+        <input placeholder="Descricao" id="descricaoToAdd" class="field"/>
+      </div>
+      <div class="dialog-buttons">
+        <button id="butAddContato" class="button">Adicionar</button>
+        <button id="butAddCancelar" class="button">Cancelar</button>
+      </div>
+    </div>
+  </div>
+  <script src="scripts/app.js" async></script>
+</body>
+</html>
