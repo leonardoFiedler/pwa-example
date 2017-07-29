@@ -1,11 +1,9 @@
 (function() {
   'use strict';
 
+  //Define um app com algumas confirgurações
   var app = {
-    isLoading: true,
-    visibleCards: {},
     selectedContatos: [],
-    spinner: document.querySelector('.loader'),
     cardTemplate: document.querySelector('.cardTemplate'),
     container: document.querySelector('.main'),
     addDialog: document.querySelector('.dialog-container')
@@ -20,6 +18,7 @@
     app.toggleAddDialog(true);
   });
 
+  //Evento ao pressionar o botão de adicionar contato da dialog
   document.getElementById('butAddContato').addEventListener('click', function() {
     var nome = document.getElementById('nomeToAdd').value;
     var telefone = document.getElementById('telefoneToAdd').value;
@@ -29,6 +28,7 @@
     var selected = select.options[select.selectedIndex];
     var genero = selected.value;
     
+    //print das informações no console
     console.log("Nome ", nome);
     console.log("Telefone ", telefone);
     console.log("Descricao ", descricao);
@@ -38,22 +38,27 @@
       app.selectedContatos = [];
     }
 
+    //Instancia um contato
     var contato = {
       nome: nome, 
       telefone : telefone, 
       genero: genero,
-      descricao: descricao};
+      descricao: descricao
+    };
 
+    //Salva e adiciona o contato na lista
     app.selectedContatos.push(contato);
     app.saveSelectedContatos();
     app.addCadastradoToView(contato);
     app.toggleAddDialog(false);
   });
 
+  //Evento do botão de cancelar
   document.getElementById('butAddCancelar').addEventListener('click', function() {
     app.toggleAddDialog(false);
   });
 
+  //Método que exibe ou esconde a dialog
   app.toggleAddDialog = function(visible) {
     if (visible) {
       app.addDialog.classList.add('dialog-container--visible');
@@ -62,12 +67,20 @@
     }
   };
 
-  //localStorage é uma variável disponível para salvar dados no browser.
+  //Método que salva os contatos, basicamente, é feito um parser para JSON da lista de contatos
+  //E atribuido para a localStorage.selectedContatos.
+  //LocalStorage é uma variável de acesso ao armazenamento do browser.
+  //Pode ser visualizada no Chrome em:
+  //Abra o console do navegador: botão direito - inspecionar
+  //Procure pela tab Aplicação ou Application
+  //na lateral aparecerá algo escrito como: Local Storage
+  //E ao selecioná-lo, aparecerá o seu site.
   app.saveSelectedContatos = function() {
     var selectedContatos = JSON.stringify(app.selectedContatos);
     localStorage.selectedContatos = selectedContatos;
   };
 
+  //Popula a view com os valores já cadastrados na local storage
   app.populaViewCadastrados = function() {
     if (app.selectedContatos) {
       app.selectedContatos.forEach(function(contato) {
@@ -83,6 +96,7 @@
     }
   }
 
+  //Passa um novo contato para ser adicionado na tela
   app.addCadastradoToView = function(contato) {
     var card = app.cardTemplate.cloneNode(true);
     card.classList.remove('cardTemplate');
@@ -94,6 +108,9 @@
     app.container.appendChild(card);
   }
 
+  /**
+   * Esta chamada é a inicial, o programa executará isto aqui primeiro
+   */
   app.selectedContatos = localStorage.selectedContatos;
   if (app.selectedContatos) {
     app.selectedContatos = JSON.parse(app.selectedContatos);
